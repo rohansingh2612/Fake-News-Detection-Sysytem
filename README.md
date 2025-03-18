@@ -92,7 +92,8 @@ User -> [Frontend (HTML/CSS/JS)] -> [Flask Backend] -> [MySQL Database]
    - K-Fold Cross-Validation Accuracy: ~88%
 
 ### Confusion Matrix:
-[image](https://github.com/user-attachments/assets/6ad8a1fe-8db8-412d-a94e-d73a6f16b5ab)
+![image](https://github.com/user-attachments/assets/0b336b37-cb2e-4e94-a9da-96654c118dcb)
+
 
 ---
 
