@@ -93,7 +93,6 @@ User -> [Frontend (HTML/CSS/JS)] -> [Flask Backend] -> [MySQL Database]
 
 ### Confusion Matrix:
 [image](https://github.com/user-attachments/assets/6ad8a1fe-8db8-412d-a94e-d73a6f16b5ab)
-)
 
 ---
 
