@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Fake News Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #1ae191, #343a40);
+      font-family: 'Montserrat', sans-serif;
+    }
+    .login-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+    .login-container h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #343a40;
+    }
+    .btn-primary {
+      background-color: #1ae191;
+      border: none;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 20px;
+    }
+    .btn-primary:hover {
+      background-color: #16b57a;
+    }
+    .form-control {
+      border-radius: 20px;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      font-weight: 600;
+      display: block;
+      text-align: left;
+    }
+    .text-center a {
+      color: #1ae191;
+      text-decoration: none;
+    }
+    .text-center a:hover {
+      text-decoration: underline;
+    }
+    .alert {
+      margin-bottom: 1rem;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Login</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('login_post') }}">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <p class="text-center mt-3">Don't have an account? <a href="{{ url_for('register') }}">Register here</a>.</p>
+  </div>
+</body>
+</html>

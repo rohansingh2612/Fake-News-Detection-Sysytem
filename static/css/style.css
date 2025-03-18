@@ -1,0 +1,416 @@
+html { 
+	/* width: 100%; 
+	height:100%;  */
+	/* overflow:hidden;  */
+	-webkit-text-size-adjust: auto;
+}
+
+body {
+	font-family: 'Montserrat', sans-serif ; 
+	width: 100%;
+	height:100%;
+	/* background: #092756;
+	color: #fff;
+	font-size: 18px;
+	text-align:center; */
+	background-color: #121212;
+	color: #e0e0e0;
+}
+
+/* General Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #212529;
+}
+
+.home-title {
+	font-family: 'Montserrat';
+	font-weight: 600;
+}
+
+.line-break{
+	width: 90px;
+	height: 8px;
+	border-radius: 20px;
+	background-color: #1ae191ff;
+	margin: 0 auto;
+}
+
+.navbar {
+	background-color: #fff;
+	background-color: #1f1f1f;
+	border-bottom: 1px solid #333;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar .nav-link {
+    color: #ffffff !important;
+}
+
+.navbar .nav-link:hover {
+    color: #ffc107 !important;
+}
+
+.navbar-nav {
+	font-family: 'Montserrat';
+	font-weight: 500;
+}
+
+.navbar-nav .nav-link {
+	color: #000 !important;
+	transition: color 0.1s ease-in;
+    -moz-transition: color 0.1s ease-in;
+	-webkit-transition: color 0.1s ease-in;
+}
+
+.navbar-nav .nav-link:hover {
+	color: rgb(18, 196, 124) !important;
+	color: #1ae191 !important;
+}
+
+.navbar .nav-item > .nav-link.active  {
+    color: rgb(18, 196, 124) !important;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(26,225,145)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.nav-btn {
+	background: #1ae191;
+	border-radius: 20px;
+	color: #fff;
+	text-transform: uppercase;
+	transition: 0.3s;
+}
+
+.card-body > a:link {
+	color: rgb(16, 168, 107);
+	background-color: transparent;
+	text-decoration: none;
+}
+
+.card-body > a:hover {
+	color: rgb(13, 129, 83);
+	background-color: transparent;
+	text-decoration: none;
+}
+
+.input-group .predict-btn {
+	background-color: rgb(18, 196, 124);
+	border: 0;
+	font-family: 'Montserrat';
+	font-weight: 500;
+	border-radius: 0 40px 40px 0 !important;
+}
+
+.input-group .predict-btn:hover,
+.input-group .predict-btn:active,
+.input-group .predict-btn:focus {
+	background-color: #1AE191;
+	border: 0;
+	outline: none;
+}
+
+.input-group {
+	height: 3rem;
+	transition: all 0.2s ease-out;
+}
+
+.input-group:hover {
+	transform: translateY(-2px);
+	-moz-transform: translateY(-2px);
+	-webkit-transform: translateY(-2px);
+	box-shadow: 0 0px 15px rgba(0,0,0,0.2);
+}
+
+.input-group .url-box {
+	font-size: 20px;
+	font-family: 'Montserrat';
+	border-radius: 40px 0 0 40px !important;
+	border: 0;
+	padding: 1rem;
+	text-indent: 10px;
+	background-color: #1f1f1f;
+	color: #e0e0e0;
+	border: 1px solid #333;
+}
+
+.input-group .url-box:focus,
+.input-group .url-box:active {
+	outline: none;
+	border-color: #1ae191;
+	box-shadow: 0 0 5px #1ae191;
+}
+
+.form-group .url-box {
+	font-size: 20px;
+	height: 20%; 
+	border-radius: 40px; 
+	border: 0;
+	/* border: 1px solid #aaa;  */
+	padding: 1rem; 
+	width: 100%;
+	text-indent: 10px;
+}
+
+.form-group .predict-btn {
+	font-size: 20px;
+	height: 20%; 
+	border-radius: 40px; 
+	width: 100%;
+}
+
+/* .input-group:focus,
+.input-group:hover {
+	border: 0;
+	box-shadow: 0 0px 5px rgba(0,0,0,0.3);
+} */
+
+.form-group .url-box:focus,
+.form-group .url-box:hover {
+	border: 0;
+	box-shadow: 0 0px 5px rgba(0,0,0,0.3);
+}
+
+.news-card {
+	border-radius: 20px !important;
+	box-shadow: 0 10px 20px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.news-card > .card-title {
+	padding-top: 2rem;
+	font-family: 'Montserrat';
+	font-weight: 500;
+}
+
+/* ======================================================
+
+History Page
+
+====================================================== */
+
+.page-title {
+	font-family: 'Montserrat';
+	font-weight: 600;
+	text-align: center;
+	margin-bottom: 2rem;
+}
+
+.table-fixed {
+	overflow-y: auto;
+	height: 570px;
+}
+
+.table-fixed thead th{
+	position: sticky;
+	top: 0;
+}
+
+/* ======================================================
+
+Predict Page
+
+====================================================== */
+
+.predict-card {
+	text-align: center;
+	font-family: 'Montserrat';
+	margin-top: 2rem;
+	border-radius: 20px !important;
+	padding: 3rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.predict-card > .card-body > p{
+	font-size: 20px;
+}
+
+.form-group .view-history-btn {
+	height: 3rem;
+	width: 15rem;
+	background-color: #1ae191;
+	color: #fff;
+	border-radius: 40px;
+	border: 0;
+	font-size: 20px;
+	font-family: 'Montserrat';
+	font-weight: 600;
+	transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+}
+
+.form-group .view-history-btn:hover {
+	background-color: rgb(18, 196, 124);
+	box-shadow: 0 5px 10px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+	transform: translateY(-3px);
+	-moz-transform: translateY(-3px);
+	-webkit-transform: translateY(-3px);
+}
+
+/* ======================================================
+
+Login / Register Page
+
+====================================================== */
+
+.full-body {
+	height: 100vh;
+	background-image: url('../assets/user-back.jpg'); 
+	background-repeat: no-repeat;
+	background-position: center; 
+	background-size: cover;
+}
+
+.register-card {
+	font-family: 'Montserrat';
+	margin-top: 4rem;
+	/* width: 55%; */
+	/* margin-left: 5rem;
+	margin-right: 20rem; */
+	border-radius: 20px !important;
+	padding: 2rem;
+	box-shadow: 0 10px 20px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+	/* position: absolute; */
+	/* top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%); */
+}
+
+.register-card .card-title {
+	padding-bottom: 2rem;
+}
+
+.register-card > .card-body > p{
+	font-size: 20px;
+}
+
+.user-card {
+	font-family: 'Montserrat';
+	margin-top: 7rem;
+	/* width: 55%; */
+	/* margin-left: 5rem;
+	margin-right: 20rem; */
+	border-radius: 20px !important;
+	padding: 2rem;
+	box-shadow: 0 10px 20px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+	/* position: absolute; */
+	/* top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%); */
+}
+
+.user-card .card-title {
+	padding-bottom: 2rem;
+}
+
+.user-card > .card-body > p{
+	font-size: 20px;
+}
+
+.form-group .auth-input {
+	height: 3rem;
+	font-family: 'Montserrat';
+	border-radius: 40px !important;
+}
+
+.form-group .auth-btn {
+	width: 10rem;
+	font-size: 20px;
+	background-color: #1ae191;
+	border: 0;
+	font-family: 'Montserrat';
+	font-weight: 600;
+	border-radius: 40px !important;
+	transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-webkit-transition: all 0.5s ease;
+}
+
+.form-group .auth-btn:hover,
+.form-group .auth-btn:active,
+.form-group .auth-btn:focus {
+	background-color: rgb(18, 196, 124);
+	box-shadow: 0 5px 10px rgba(0,0,0,.1), 0 4px 8px rgba(0,0,0,.06);
+	transform: translateY(-3px);
+	-moz-transform: translateY(-3px);
+	-webkit-transform: translateY(-3px);
+	outline: none;
+}
+
+/* Forms */
+.form-control {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+}
+
+/* Cards */
+.card {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Alerts */
+.alert {
+    border-radius: 0.25rem;
+    margin-top: 10px;
+}
+
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* ======================================================
+
+Comments Page
+
+====================================================== */
+
+.comments-section {
+  background-color: #1f1f1f;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-top: 2rem;
+}
+
+.comment {
+  border-bottom: 1px solid #333;
+  padding: 0.5rem 0;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.comment-author {
+  font-weight: bold;
+  color: #1ae191;
+}
+
+.comment-text {
+  margin-top: 0.5rem;
+  color: #e0e0e0;
+}

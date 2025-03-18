@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History - Fake News Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1ae191, #343a40);
+      color: #fff;
+    }
+    .navbar {
+      background-color: #343a40;
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .navbar-brand img {
+      height: 50px;
+    }
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+    }
+    .navbar-nav .nav-link {
+      color: #fff !important;
+      margin-right: 1rem;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #1ae191 !important;
+    }
+    .container {
+      margin-top: 2rem;
+    }
+    .history-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-top: 2rem;
+    }
+    .history-card h1 {
+      color: #343a40;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+    .table {
+      width: 100%;
+      margin-top: 1rem;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+    .table th, .table td {
+      padding: 0.75rem;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    .table th {
+      background-color: #1ae191;
+      color: #fff;
+    }
+    .table td {
+      color: #124d9a; /* Changed font color to navy blue */
+    }
+    .table tbody tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    .table tbody tr:hover {
+      background-color: #ddd;
+    }
+    .table a {
+      color: #124d9a;
+      text-decoration: none;
+    }
+    .table a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex align-items-center">
+    <a class="navbar-brand mr-5" href="{{ url_for('main') }}">
+      <img src="{{ url_for('static', filename='assets/logo-v2.png') }}" alt="Logo" height="50px">
+    </a>
+    <div class="collapse navbar-collapse justify-content-end ml-3" id="navbarNav">
+      <ul class="navbar-nav" style="list-style: none; padding-left: 0;">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('main') }}">Home</a></li>
+        {% if session.logged_in %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('history') }}">History</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('comments') }}">Comments</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
+          <li class="nav-item">
+            <span class="navbar-text text-light">{{ session.username }}</span>
+          </li>
+        {% else %}
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="history-card">
+      <h1>Prediction History</h1>
+      {% if record %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>URL</th>
+              <th>Prediction</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for entry in history %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td><a href="{{ entry.historyURL }}" target="_blank">{{ entry.historyURL }}</a></td>
+                <td>{{ entry.historyLabel }}</td>
+                <td>{{ entry.historyDate }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p>No history found.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

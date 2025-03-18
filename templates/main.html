@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fake News Detector App - CheckThis</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1ae191, #343a40);
+      color: #fff;
+    }
+    .navbar {
+      background-color: #343a40;
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .navbar-brand img {
+      height: 50px;
+    }
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+    }
+    .navbar-nav .nav-link {
+      color: #fff !important;
+      margin-right: 1rem;
+    }
+    .navbar-nav .nav-link:hover {
+      color: #1ae191 !important;
+    }
+    .jumbotron {
+      background: #fff;
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .home-title {
+      color: #343a40;
+    }
+    .line-break {
+      width: 90px;
+      height: 8px;
+      border-radius: 20px;
+      background-color: #1ae191;
+      margin: 0 auto;
+    }
+    .input-group {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .input-group .form-control {
+      border-radius: 20px 0 0 20px;
+      padding: 1rem;
+      border: 1px solid #ced4da;
+      width: 70%;
+    }
+    .input-group .btn {
+      border-radius: 0 20px 20px 0;
+      background-color: #1ae191;
+      border: none;
+      padding: 1rem 2rem;
+    }
+    .input-group .btn:hover {
+      background-color: #16b57a;
+    }
+    .news-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-top: 2rem;
+    }
+    .news-card h3 {
+      color: #343a40;
+      text-align: center;
+    }
+    .news-card ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .news-card ul li {
+      margin-bottom: 0.5rem;
+    }
+    .news-card ul li a {
+      color: #124d9a; /* New link color */
+      text-decoration: none;
+    }
+    .news-card ul li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  {% include 'includes/_navbar.html' %}
+  <section>
+    <div class="container">
+      <div class="jumbotron">
+        <h1 class="home-title">Fake News Detector</h1>
+        <div class="line-break"></div>
+        <form action="{{ url_for('predict')}}" method="POST" class="mt-4">
+          <div class="input-group input-group-lg">
+            <input class="form-control" type="text" name="news" placeholder="Enter the news URL" required>
+            <div class="input-group-append">
+              <button type="submit" class="btn">Check</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="news-card">
+        <h3>Top News Today</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <ul>
+              <li><a href="{{ l2[0] }}">{{ l1[0] }}</a></li>
+              <li><a href="{{ l2[1] }}">{{ l1[1] }}</a></li>
+              <li><a href="{{ l2[2] }}">{{ l1[2] }}</a></li>
+              <li><a href="{{ l2[3] }}">{{ l1[3] }}</a></li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul>
+              <li><a href="{{ l2[4] }}">{{ l1[4] }}</a></li>
+              <li><a href="{{ l2[5] }}">{{ l1[5] }}</a></li>
+              <li><a href="{{ l2[6] }}">{{ l1[6] }}</a></li>
+              <li><a href="{{ l2[7] }}">{{ l1[7] }}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
