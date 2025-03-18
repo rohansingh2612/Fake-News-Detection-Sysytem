@@ -92,7 +92,8 @@ User -> [Frontend (HTML/CSS/JS)] -> [Flask Backend] -> [MySQL Database]
    - K-Fold Cross-Validation Accuracy: ~88%
 
 ### Confusion Matrix:
-![Confusion Matrix](https://via.placeholder.com/600x400?text=Confusion+Matrix)
+[image](https://github.com/user-attachments/assets/6ad8a1fe-8db8-412d-a94e-d73a6f16b5ab)
+)
 
 ---
 
@@ -155,13 +156,15 @@ User -> [Frontend (HTML/CSS/JS)] -> [Flask Backend] -> [MySQL Database]
 
 ## Screenshots
 ### 1. **Homepage**:
-![Homepage](https://via.placeholder.com/800x400?text=Homepage)
+![image](https://github.com/user-attachments/assets/c3f4eb51-b5ce-4fa4-8d88-fd1d37dfb654)
 
 ### 2. **Prediction Result**:
-![Prediction Result](https://via.placeholder.com/800x400?text=Prediction+Result)
+![image](https://github.com/user-attachments/assets/ca30b9fb-d39c-4dfe-80fd-eff9c2718d9f)
+
+![image](https://github.com/user-attachments/assets/84904a32-5b51-48ae-aaaa-1d039fa98bbf)
 
 ### 3. **History Page**:
-![History Page](https://via.placeholder.com/800x400?text=History+Page)
+![image](https://github.com/user-attachments/assets/c36bfa6f-60b8-4b54-8aa0-5d8e28ed9afe)
 
 ---
 
@@ -175,9 +178,9 @@ User -> [Frontend (HTML/CSS/JS)] -> [Flask Backend] -> [MySQL Database]
 
 ## Contributors
 - **Rohan** - Developer
-- **Jonathan Lee** - Machine Learning Specialist
 
 ---
 
 ## License
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License. See the [`LICENSE`](https://github.com/rohansingh2612/Fake-News-Detection-Sysytem/blob/main/LICENSE)
+ file for details.
