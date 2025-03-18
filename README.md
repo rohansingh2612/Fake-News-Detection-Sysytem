@@ -176,11 +176,6 @@ User -> [Frontend (HTML/CSS/JS)] -> [Flask Backend] -> [MySQL Database]
 
 ---
 
-## Contributors
-- **Rohan** - Developer
-
----
-
 ## License
 This project is licensed under the MIT License. See the [`LICENSE`](https://github.com/rohansingh2612/Fake-News-Detection-Sysytem/blob/main/LICENSE)
  file for details.
