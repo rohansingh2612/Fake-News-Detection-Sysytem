@@ -19,6 +19,7 @@ from config import Config as AppConfig
 import pandas as pd  
 import newspaper  
 import numpy as np  
+from datetime import datetime  # Add this import
 
 # Initialize Flask app
 app = Flask(__name__, template_folder='templates')
@@ -215,11 +216,20 @@ def predict():
                         else:
                             outcome = "False"
 
+                        # Add prediction date
+                        prediction_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
                         if 'logged_in' in session:
                             userID = session['id']
                             save_history(mysql, userID, url, outcome)
 
-                        return render_template('predict.html', prediction_text=outcome, url_input=url, news=news)
+                        return render_template(
+                            'predict.html',
+                            prediction_text=outcome,  # Ensure this is passed correctly
+                            url_input=url,
+                            news=news,
+                            prediction_date=prediction_date  # Pass prediction date
+                        )
                     else:
                         flash('Invalid URL! Please try again', 'danger')
                         return redirect(url_for('main'))

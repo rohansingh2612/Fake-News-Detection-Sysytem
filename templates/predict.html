@@ -5,127 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Predict - Fake News Detector App</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: linear-gradient(135deg, #1ae191, #343a40);
-      color: #124d9a; /* Changed font color to navy blue */
-    }
-    .navbar {
-      background-color: #343a40;
-      padding: 1rem;
-      display: flex;
-      justify-content: flex-end;
-    }
-    .navbar-brand img {
-      height: 50px;
-    }
-    .navbar-nav {
-      display: flex;
-      align-items: center;
-    }
-    .navbar-nav .nav-link {
-      color: #fff !important;
-      margin-right: 1rem;
-    }
-    .navbar-nav .nav-link:hover {
-      color: #1ae191 !important;
-    }
-    .jumbotron {
-      background: #fff;
-      border-radius: 10px;
-      padding: 2rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      margin-top: 2rem;
-      text-align: center;
-    }
-    .home-title {
-      color: #124d9a; /* Changed font color to navy blue */
-    }
-    .line-break {
-      width: 90px;
-      height: 8px;
-      border-radius: 20px;
-      background-color: #1ae191;
-      margin: 0 auto;
-    }
-    .input-group {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .input-group .form-control {
-      border-radius: 20px 0 0 20px;
-      padding: 1rem;
-      border: 1px solid #ced4da;
-      width: 70%;
-    }
-    .input-group .btn {
-      border-radius: 0 20px 20px 0;
-      background-color: #1ae191;
-      border: none;
-      padding: 1rem 2rem;
-    }
-    .input-group .btn:hover {
-      background-color: #16b57a;
-    }
-    .predict-card {
-      background: #fff;
-      border-radius: 10px;
-      padding: 1rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      margin-top: 2rem;
-    }
-    .predict-card h4 {
-      color: #124d9a; /* Changed font color to navy blue */
-      text-align: center;
-      font-size: 1.5rem; /* Increased font size */
-    }
-    .predict-card h1 {
-      text-align: center;
-      font-size: 2rem; /* Increased font size */
-      font-weight: bold;
-    }
-    .predict-card h1.true {
-      color: #1ae191;
-    }
-    .predict-card h1.false {
-      color: rgb(182, 24, 24);
-    }
-    .predict-card h1.error {
-      color: rgb(0, 0, 0);
-    }
-    .predict-card .date {
-      font-size: 1rem; /* Added font size for date */
-      color: #124d9a; /* Changed font color to navy blue */
-      margin-top: 1rem;
-      text-align: center;
-    }
-  </style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex align-items-center">
-    <a class="navbar-brand mr-5" href="{{ url_for('main') }}">
-      <img src="{{ url_for('static', filename='assets/logo-v2.png') }}" alt="Logo" height="50px">
-    </a>
-    <div class="collapse navbar-collapse justify-content-end ml-3" id="navbarNav">
-      <ul class="navbar-nav" style="list-style: none; padding-left: 0;">
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('main') }}">Home</a></li>
-        {% if session.logged_in %}
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('history') }}">History</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('comments') }}">Comments</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
-          <li class="nav-item">
-            <span class="navbar-text text-light">{{ session.username }}</span>
-          </li>
-        {% else %}
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
-        {% endif %}
-      </ul>
-    </div>
-  </nav>
+  {% include 'includes/_navbar.html' %}
   <section>
     <div class="container">
       <div class="jumbotron">
@@ -150,10 +32,11 @@
           {% else %}
             <h1 class="error">{{ language_error }} ❌</h1>
           {% endif %}
-          <p class="date">Prediction Date: {{ prediction_date }}</p> <!-- Added date -->
+          <p class="date">Prediction Date: {{ prediction_date }}</p> <!-- Display prediction date -->
         </div>
       </div>
     </div>
   </section>
+  {% include 'includes/_footer.html' %}
 </body>
 </html>

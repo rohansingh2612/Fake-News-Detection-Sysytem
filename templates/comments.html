@@ -5,65 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Comments - Fake News Detector</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: linear-gradient(135deg, #1ae191, #343a40);
-      font-family: 'Montserrat', sans-serif;
-    }
-    .comments-container {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      width: 100%;
-      max-width: 600px;
-    }
-    .comments-container h1 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      color: #343a40;
-    }
-    .btn {
-      background-color: #1ae191;
-      border: none;
-      transition: background-color 0.3s ease;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border-radius: 0 20px 20px 0; /* Adjusted border-radius for right alignment */
-    }
-    .btn:hover {
-      background-color: #16b57a;
-    }
-    .form-control {
-      border-radius: 20px 0 0 20px; /* Adjusted border-radius for left alignment */
-      padding: 0.75rem;
-    }
-    .input-group {
-      display: flex;
-      align-items: center;
-    }
-    .comment {
-      border-bottom: 1px solid #ddd;
-      padding: 0.5rem 0;
-    }
-    .comment:last-child {
-      border-bottom: none;
-    }
-    .comment-author {
-      font-weight: bold;
-      color: #0fa74e; /* New link color */
-    }
-    .comment-text {
-      margin-top: 0.5rem;
-      color: #343a40;
-    }
-  </style>
 </head>
 <body>
+  {% include 'includes/_navbar.html' %}
   <div class="comments-container">
     <h1>Comments</h1>
     <form method="POST" action="{{ url_for('comments') }}">
@@ -81,5 +25,6 @@
       {% endfor %}
     </div>
   </div>
+  {% include 'includes/_footer.html' %}
 </body>
 </html>
