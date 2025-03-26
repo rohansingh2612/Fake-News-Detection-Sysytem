@@ -156,15 +156,21 @@ User -> [Frontend (HTML/CSS/JS)] -> [Flask Backend] -> [MySQL Database]
 
 ## Screenshots
 ### 1. **Homepage**:
-![image](https://github.com/user-attachments/assets/c3f4eb51-b5ce-4fa4-8d88-fd1d37dfb654)
+![image](https://github.com/user-attachments/assets/fc6f1b4b-3117-414f-9f7f-71bb3f5de8cf)
 
 ### 2. **Prediction Result**:
-![image](https://github.com/user-attachments/assets/ca30b9fb-d39c-4dfe-80fd-eff9c2718d9f)
-
-![image](https://github.com/user-attachments/assets/84904a32-5b51-48ae-aaaa-1d039fa98bbf)
+![image](https://github.com/user-attachments/assets/8f0c0fe9-c205-4f16-9158-c2194121291b)
+![image](https://github.com/user-attachments/assets/718c73f0-0104-4047-ac3f-4935e1b4a4d5)
 
 ### 3. **History Page**:
-![image](https://github.com/user-attachments/assets/c36bfa6f-60b8-4b54-8aa0-5d8e28ed9afe)
+![image](https://github.com/user-attachments/assets/ec1f2a08-4b52-46d6-9cf2-c63dd1544d59)
+
+### 4. **Comments Page**:
+![image](https://github.com/user-attachments/assets/d03acc83-4172-4883-854c-fdace6923f35)
+
+### 4. **Login/Register Page**:
+![image](https://github.com/user-attachments/assets/5a3b89d4-7e76-4695-bc87-f799ae8b37de)
+![image](https://github.com/user-attachments/assets/02508950-1bd3-4b76-b809-f941e48e225b)
 
 ---
 
