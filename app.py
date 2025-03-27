@@ -32,7 +32,7 @@ mysql = MySQL(app)
 # Initialize LoginManager
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'  # Redirect to login page if not authenticated
+login_manager.login_view = 'login'  
 
 # Define User class
 class User(UserMixin):
@@ -225,10 +225,10 @@ def predict():
 
                         return render_template(
                             'predict.html',
-                            prediction_text=outcome,  # Ensure this is passed correctly
+                            prediction_text=outcome, 
                             url_input=url,
                             news=news,
-                            prediction_date=prediction_date  # Pass prediction date
+                            prediction_date=prediction_date 
                         )
                     else:
                         flash('Invalid URL! Please try again', 'danger')
