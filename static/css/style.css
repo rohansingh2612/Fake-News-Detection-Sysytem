@@ -874,36 +874,3 @@ footer {
     color: #ff4d4d; /* Red color for false predictions */
     font-weight: bold;
 }
-@media screen and (max-width: 768px) {
-  .container {
-    padding: 0 1rem; 
-  }
-
-  .input-group .form-control,
-  .input-group.mb-3 .form-control {
-    font-size: 1rem; 
-    padding: 1rem;
-  }
-  .navbar-nav .nav-link {
-    font-size: 0.9rem;
-  }
-  .navbar-brand img {
-    height: 40px;
-  }
-  .jumbotron {
-    padding: 1.5rem;
-  }
-  .news-card h3 {
-    font-size: 1.5rem;
-  }
-  .news-card ul li a {
-    font-size: 0.9rem;
-  }
-  .table {
-    font-size: 0.9rem;
-  }
-  .comments-container h1 {
-    font-size: 1.5rem;
-  }
-  
-}
