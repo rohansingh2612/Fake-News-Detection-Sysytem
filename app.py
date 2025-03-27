@@ -19,7 +19,7 @@ from config import Config as AppConfig
 import pandas as pd  
 import newspaper  
 import numpy as np  
-from datetime import datetime  # Add this import
+from datetime import datetime  
 
 # Initialize Flask app
 app = Flask(__name__, template_folder='templates')
