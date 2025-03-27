@@ -182,7 +182,7 @@ def predict():
     url = request.get_data(as_text=True)[5:]
     url = urllib.parse.unquote(url)
 
-    if is_valid_url(url):  # Use renamed function
+    if is_valid_url(url): 
         user_agent = request.headers.get('User-Agent')
         config = Config()
         config.browser_user_agent = user_agent
