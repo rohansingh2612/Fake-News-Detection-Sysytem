@@ -31,7 +31,7 @@ vectorizer = TfidfVectorizer(stop_words='english', max_df=0.7, lowercase=True)
 transformed_text_train = vectorizer.fit_transform(text_train)
 transformed_text_test = vectorizer.transform(text_test)
 filename_vectorizer = 'TfidfVectorizer.sav'
-pickle.dump(vectorizer, open(filename_vectorizer, 'wb')) # Saving model
+pickle.dump(vectorizer, open(filename_vectorizer, 'wb'))
 
 # Initialize Classifier
 classifier = PassiveAggressiveClassifier(max_iter=100, warm_start=True)
@@ -42,7 +42,7 @@ classifier.fit(transformed_text_train, label_train)
 predict = classifier.predict(transformed_text_test)
 
 filename = 'ClassifierModel.sav'
-pickle.dump(classifier, open(filename, 'wb')) # Saving model
+pickle.dump(classifier, open(filename, 'wb'))
 
 # Get Accuracy Score
 score = accuracy_score(label_test, predict)

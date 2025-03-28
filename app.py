@@ -87,7 +87,7 @@ def login_post():
                 password_db = account['password_hash']
                 if check_password_hash(password_db, password):
                     user = User(id=account['id'], username=account['username'], email=account['email'])
-                    login_user(user)  # Log the user in
+                    login_user(user)  
                     session['logged_in'] = True
                     session['username'] = account['username']
                     session['id'] = account['id']
@@ -211,7 +211,7 @@ def predict():
                         cleaned_text = cleaner.transform(news_to_predict)
                         pred = model.predict(cleaned_text)
                         pred_outcome = format(pred[0])
-                        if pred_outcome == "0":
+                        if pred_outcome == "Real":
                             outcome = "True"
                         else:
                             outcome = "False"
