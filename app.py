@@ -68,80 +68,70 @@ def login():
 
 @app.route('/login', methods=['POST'])
 def login_post():
-    msg = ''
-    email = ''
+    """Handle login form submission."""
+    email = request.form.get('email')
+    password = request.form.get('password')
 
     if current_user.is_authenticated:
         return redirect('/history')
 
-    if request.method == 'POST':
-        email = request.form.get('email')
-        password = request.form.get('password')
+    try:
+        cursor = mysql.connection.cursor()
+        cursor.execute('SELECT * FROM users WHERE email LIKE %s', (email,))
+        account = cursor.fetchone()
 
-        try:
-            cursor = mysql.connection.cursor()
-            cursor.execute('SELECT * FROM users WHERE email LIKE %s', (email,))
-            account = cursor.fetchone()
-
-            if account:
-                password_db = account['password_hash']
-                if check_password_hash(password_db, password):
-                    user = User(id=account['id'], username=account['username'], email=account['email'])
-                    login_user(user)  
-                    session['logged_in'] = True
-                    session['username'] = account['username']
-                    session['id'] = account['id']
-                    flash('You have successfully logged in!', 'success')
-                    return redirect(url_for('main'))
-                else:
-                    flash('Wrong password! Please try again!', 'danger')
-                    return render_template('login.html', email=email)
-
-                cursor.close()
+        if account:
+            password_db = account['password_hash']
+            if check_password_hash(password_db, password):
+                user = User(id=account['id'], username=account['username'], email=account['email'])
+                login_user(user)
+                session['logged_in'] = True
+                session['username'] = account['username']
+                session['id'] = account['id']
+                flash('You have successfully logged in!', 'success')
+                return redirect(url_for('main'))
             else:
-                flash('Account with this email address does not exist! Please try again!', 'danger')
-        except:
-            flash('We are having trouble connecting to the database! Please try again later!', 'danger')
+                flash('Incorrect password. Please try again.', 'danger')
+        else:
+            flash('No account found with this email address.', 'danger')
+    except Exception as e:
+        flash(f'Error: {e}', 'danger')
+    finally:
+        cursor.close()
 
-    return redirect(url_for('login'))
+    return render_template('login.html', email=email)
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
-    msg = ''
-    email = ''
-    username = ''
+    """Handle registration form submission."""
+    email = request.form.get('email')
+    username = request.form.get('username')
+    password = request.form.get('password')
 
     if request.method == 'POST':
-        email = request.form.get('email')
-        username = request.form.get('username')
-        password = request.form.get('password')
-        password_hash = generate_password_hash(password)
-
         try:
             cursor = mysql.connection.cursor()
             cursor.execute('SELECT * FROM users WHERE email LIKE %s', (email,))
             account = cursor.fetchone()
 
             if account:
-                flash('Email already exists!', 'danger')
-                return render_template('register.html', username=username)
+                flash('An account with this email already exists.', 'danger')
             elif len(password) < 8:
-                flash('Please use a stronger password (*Password must have at least 8 characters)', 'danger')
-                return render_template('register.html', email=email, username=username)
+                flash('Password must be at least 8 characters long.', 'danger')
             elif not username or not password or not email:
-                flash('Please fill out the form to register!', 'danger')
-                return render_template('register.html')
+                flash('All fields are required.', 'danger')
             else:
-                cursor.execute("INSERT INTO users(email, username, password_hash) VALUES(%s,%s,%s)", (email, username, password_hash))
+                password_hash = generate_password_hash(password)
+                cursor.execute("INSERT INTO users(email, username, password_hash) VALUES(%s, %s, %s)", (email, username, password_hash))
                 mysql.connection.commit()
-                cursor.close()
-                flash('You have successfully registered and you are allowed to login', 'success')
+                flash('Registration successful! You can now log in.', 'success')
                 return redirect(url_for('login'))
         except Exception as e:
-            flash(f'Database connection error: {e}', 'danger')
-            return render_template('register.html', email=email, username=username)
+            flash(f'Error: {e}', 'danger')
+        finally:
+            cursor.close()
 
-    return render_template('register.html', msg=msg)
+    return render_template('register.html', email=email, username=username)
 
 # Check if user logged in
 def is_logged_in(f):
@@ -211,7 +201,7 @@ def predict():
                         cleaned_text = cleaner.transform(news_to_predict)
                         pred = model.predict(cleaned_text)
                         pred_outcome = format(pred[0])
-                        if pred_outcome == "Real":
+                        if pred_outcome == "0":
                             outcome = "True"
                         else:
                             outcome = "False"

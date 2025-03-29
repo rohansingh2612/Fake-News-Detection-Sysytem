@@ -20,7 +20,7 @@
     <form method="POST" action="{{ url_for('login_post') }}">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
+        <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" value="{{ request.form.get('email', '') }}" required>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
