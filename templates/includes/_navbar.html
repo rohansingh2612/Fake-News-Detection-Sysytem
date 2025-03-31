@@ -5,7 +5,10 @@
   <div class="collapse navbar-collapse justify-content-end ml-3" id="navbarNav">
     <ul class="navbar-nav" style="list-style: none; padding-left: 0;">
       <li class="nav-item"><a class="nav-link" href="{{ url_for('main') }}">Home</a></li>
-      {% if session.logged_in %}
+      {% if session.admin_logged_in %}
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_logout') }}">Logout</a></li>
+      {% elif session.logged_in %}
         <li class="nav-item"><a class="nav-link" href="{{ url_for('history') }}">History</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('comments') }}">Comments</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Logout</a></li>
@@ -15,6 +18,9 @@
       {% else %}
         <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Register</a></li>
+        <li class="nav-item">
+          <a class="btn btn-sm btn-outline-light" href="{{ url_for('admin_login') }}">Admin Login</a>
+        </li>
       {% endif %}
     </ul>
   </div>

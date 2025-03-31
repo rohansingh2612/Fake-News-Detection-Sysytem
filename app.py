@@ -64,23 +64,39 @@ def main():
 
 @app.route('/login')
 def login():
+    """Render the login page."""
+    registered = request.args.get('registered')  # Check if redirected from registration
+    if registered:
+        flash('Registration successful! You can now log in.', 'login_success')
     return render_template('login.html')
 
 @app.route('/login', methods=['POST'])
 def login_post():
-    """Handle login form submission."""
+    """Handle login form submission for both users and admin."""
     email = request.form.get('email')
     password = request.form.get('password')
 
     if current_user.is_authenticated:
         return redirect('/history')
 
+    cursor = None  # Initialize cursor to None
     try:
+        # Check if the login is for admin
+        if email == "admin@fakenews.com" and password == "admin123":
+            session.clear()  # Clear any existing session
+            session['admin_logged_in'] = True
+            flash('Admin login successful!', 'login_success')
+            return redirect(url_for('admin_dashboard'))
+
+        # Check if the login is for a regular user
         cursor = mysql.connection.cursor()
-        cursor.execute('SELECT * FROM users WHERE email LIKE %s', (email,))
+        cursor.execute('SELECT * FROM users WHERE email = %s', (email,))
         account = cursor.fetchone()
 
         if account:
+            if account['banned']:
+                flash('Your account has been banned. Please contact support.', 'login_error')
+                return redirect(url_for('login'))
             password_db = account['password_hash']
             if check_password_hash(password_db, password):
                 user = User(id=account['id'], username=account['username'], email=account['email'])
@@ -88,16 +104,17 @@ def login_post():
                 session['logged_in'] = True
                 session['username'] = account['username']
                 session['id'] = account['id']
-                flash('You have successfully logged in!', 'success')
+                flash('You have successfully logged in!', 'login_success')
                 return redirect(url_for('main'))
             else:
-                flash('Incorrect password. Please try again.', 'danger')
+                flash('Incorrect password. Please try again.', 'login_error')
         else:
-            flash('No account found with this email address.', 'danger')
+            flash('No account found with this email address.', 'login_error')
     except Exception as e:
-        flash(f'Error: {e}', 'danger')
+        flash(f'Error: {e}', 'login_error')
     finally:
-        cursor.close()
+        if cursor:  # Close the cursor only if it was initialized
+            cursor.close()
 
     return render_template('login.html', email=email)
 
@@ -115,19 +132,19 @@ def register():
             account = cursor.fetchone()
 
             if account:
-                flash('An account with this email already exists.', 'danger')
+                flash('An account with this email already exists.', 'register_error')
             elif len(password) < 8:
-                flash('Password must be at least 8 characters long.', 'danger')
+                flash('Password must be at least 8 characters long.', 'register_error')
             elif not username or not password or not email:
-                flash('All fields are required.', 'danger')
+                flash('All fields are required.', 'register_error')
             else:
                 password_hash = generate_password_hash(password)
                 cursor.execute("INSERT INTO users(email, username, password_hash) VALUES(%s, %s, %s)", (email, username, password_hash))
                 mysql.connection.commit()
-                flash('Registration successful! You can now log in.', 'success')
-                return redirect(url_for('login'))
+                flash('Registration successful! You can now log in.', 'register_success')
+                return redirect(url_for('login', registered=True))  # Pass a query parameter
         except Exception as e:
-            flash(f'Error: {e}', 'danger')
+            flash(f'Error: {e}', 'register_error')
         finally:
             cursor.close()
 
@@ -140,7 +157,7 @@ def is_logged_in(f):
         if 'logged_in' in session:
             return f(*args, **kwargs)
         else:
-            flash('Please login to gain access of this page', 'danger')
+            flash('Please login to gain access of this page', 'access_error')
             return redirect(url_for('login'))
     return wrap
 
@@ -221,19 +238,19 @@ def predict():
                             prediction_date=prediction_date 
                         )
                     else:
-                        flash('Invalid URL! Please try again', 'danger')
+                        flash('Invalid URL! Please try again', 'predict_error')
                         return redirect(url_for('main'))
                 else:
                     language_error = "We currently do not support this language"
                     return render_template('predict.html', language_error=language_error, url_input=url)
             else:
-                flash('Invalid news article! Please try again', 'danger')
+                flash('Invalid news article! Please try again', 'predict_error')
                 return redirect(url_for('main'))
         except newspaper.article.ArticleException:
-            flash('We currently do not support this website! Please try again', 'danger')
+            flash('We currently do not support this website! Please try again', 'predict_error')
             return redirect(url_for('main'))
     else:
-        flash('Please enter a valid news site URL', 'danger')
+        flash('Please enter a valid news site URL', 'predict_error')
         return redirect(url_for('main'))
 
     return render_template('predict.html')
@@ -248,7 +265,7 @@ def comments():
         cursor.execute("INSERT INTO comments(userID, commentText) VALUES(%s, %s)", (user_id, comment_text))
         mysql.connection.commit()
         cursor.close()
-        flash('Comment added successfully!', 'success')
+        flash('Comment added successfully!', 'comment_success')
         return redirect(url_for('comments'))
 
     cursor = mysql.connection.cursor()
@@ -256,6 +273,117 @@ def comments():
     comments = cursor.fetchall()
     cursor.close()
     return render_template('comments.html', comments=comments)
+
+@app.route('/admin', methods=['GET', 'POST'])
+def admin_login():
+    """Admin login page."""
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        # Check admin credentials
+        if email == "admin@fakenews.com" and password == "admin123":
+            session.clear()  # Clear any existing session
+            session['admin_logged_in'] = True
+            flash('Admin login successful!', 'admin_success')
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash('Invalid admin credentials. Please try again.', 'admin_error')
+
+    return render_template('admin_login.html')
+
+@app.route('/admin/dashboard')
+def admin_dashboard():
+    """Admin dashboard."""
+    if not session.get('admin_logged_in'):
+        flash('Please log in as admin to access this page.', 'admin_error')
+        return redirect(url_for('login'))
+
+    cursor = mysql.connection.cursor()
+    cursor.execute('SELECT * FROM users WHERE banned = 0')  # Fetch active users
+    users = cursor.fetchall()
+    cursor.execute('SELECT * FROM users WHERE banned = 1')  # Fetch banned users
+    banned_users = cursor.fetchall()
+    cursor.execute('SELECT * FROM comments')
+    comments = cursor.fetchall()
+    cursor.close()
+
+    return render_template('admin_dashboard.html', users=users, banned_users=banned_users, comments=comments)
+
+@app.route('/admin/remove_user/<int:user_id>', methods=['POST'])
+def remove_user(user_id):
+    """Remove a user."""
+    if not session.get('admin_logged_in'):
+        flash('Unauthorized access.', 'admin_error')
+        return redirect(url_for('login'))
+
+    try:
+        cursor = mysql.connection.cursor()
+        # Delete related rows in the history and comments tables
+        cursor.execute('DELETE FROM history WHERE userID = %s', (user_id,))
+        cursor.execute('DELETE FROM comments WHERE userID = %s', (user_id,))
+        # Delete the user
+        cursor.execute('DELETE FROM users WHERE id = %s', (user_id,))
+        mysql.connection.commit()
+        flash('User removed successfully.', 'admin_success')
+    except Exception as e:
+        flash(f'Error: {e}', 'admin_error')
+    finally:
+        cursor.close()
+
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/remove_comment/<int:comment_id>', methods=['POST'])
+def remove_comment(comment_id):
+    """Remove a comment."""
+    if not session.get('admin_logged_in'):
+        flash('Unauthorized access.', 'admin_error')
+        return redirect(url_for('login'))
+
+    cursor = mysql.connection.cursor()
+    cursor.execute('DELETE FROM comments WHERE id = %s', (comment_id,))
+    mysql.connection.commit()
+    cursor.close()
+
+    flash('Comment removed successfully.', 'admin_success')
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/ban_user/<int:user_id>', methods=['POST'])
+def ban_user(user_id):
+    """Ban a user."""
+    if not session.get('admin_logged_in'):
+        flash('Unauthorized access.', 'admin_error')
+        return redirect(url_for('login'))
+
+    cursor = mysql.connection.cursor()
+    cursor.execute('UPDATE users SET banned = 1 WHERE id = %s', (user_id,))
+    mysql.connection.commit()
+    cursor.close()
+
+    flash('User banned successfully.', 'admin_success')
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/unban_user/<int:user_id>', methods=['POST'])
+def unban_user(user_id):
+    """Unban a user."""
+    if not session.get('admin_logged_in'):
+        flash('Unauthorized access.', 'admin_error')
+        return redirect(url_for('login'))
+
+    cursor = mysql.connection.cursor()
+    cursor.execute('UPDATE users SET banned = 0 WHERE id = %s', (user_id,))
+    mysql.connection.commit()
+    cursor.close()
+
+    flash('User unbanned successfully.', 'admin_success')
+    return redirect(url_for('admin_dashboard'))
+
+@app.route('/admin/logout')
+def admin_logout():
+    """Admin logout."""
+    session.clear()  # Clear all session data
+    flash('You have been logged out as admin.', 'admin_success')
+    return redirect(url_for('login'))
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))

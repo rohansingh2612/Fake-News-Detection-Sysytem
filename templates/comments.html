@@ -11,6 +11,15 @@
   {% include 'includes/_navbar.html' %}
   <div class="comments-container">
     <h1>Comments</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          {% if category == 'comment_success' %}
+            <div class="alert alert-success">{{ message }}</div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     <form method="POST" action="{{ url_for('comments') }}">
       <div class="input-group mb-3">
         <input type="text" name="comment" class="form-control" placeholder="Write a comment..." required>

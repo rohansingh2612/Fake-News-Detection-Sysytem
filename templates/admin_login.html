@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Fake News Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="auth-body">
+  <div class="auth-container">
+    <h1>Admin Login</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('login_post') }}">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" id="email" placeholder="Enter admin email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" id="password" placeholder="Enter admin password" required>
+      </div>
+      <button type="submit" class="btn-primary">Login</button>
+    </form>
+  </div>
+</body>
+</html>

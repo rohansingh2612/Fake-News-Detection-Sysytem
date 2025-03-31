@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Fake News Detector</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  {% include 'includes/_navbar.html' %}
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          {% if category == 'admin_success' or category == 'admin_error' %}
+            <div class="alert alert-{{ 'danger' if category == 'admin_error' else 'success' }}">{{ message }}</div>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <h1>Admin Dashboard</h1>
+    <h2>Manage Users</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <form method="POST" action="{{ url_for('remove_user', user_id=user.id) }}" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Remove</button>
+              </form>
+              <form method="POST" action="{{ url_for('ban_user', user_id=user.id) }}" style="display:inline;">
+                <button type="submit" class="btn btn-warning">Ban</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Manage Comments</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Comment</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in comments %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ comment.username }}</td>
+            <td>{{ comment.commentText }}</td>
+            <td>
+              <form method="POST" action="{{ url_for('remove_comment', comment_id=comment.id) }}" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Remove</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Banned Users</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in banned_users %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <form method="POST" action="{{ url_for('unban_user', user_id=user.id) }}" style="display:inline;">
+                <button type="submit" class="btn btn-success">Unban</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% include 'includes/_footer.html' %}
+</body>
+</html>
